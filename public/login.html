@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button onclick="loginHandler()">登录</button>
+    <script>
+      let href = location.href;
+      let url = new URL(href);
+      console.log(url.searchParams.get("login_challenge"));
+      if (!url.searchParams.get("login_challenge")) {
+        window.location.href =
+          "http://localhost:4444/oauth2/auth?&client_id=tommy1&response_type=code&scope=openid&state=1234567890123456";
+      }
+
+      function loginHandler() {
+        fetch("/api/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: "admin",
+            pwd: "123456",
+            login_challenge: url.searchParams.get("login_challenge"),
+          }),
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            if (res.code === 0) {
+              window.location.href = res.data.redirect_to;
+            }
+          });
+      }
+    </script>
+  </body>
+</html>

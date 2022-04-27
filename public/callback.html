@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>callback</title>
+  </head>
+  <body>
+    <script>
+      let href = location.href;
+      let url = new URL(href);
+      let code = url.searchParams.get("code");
+
+      let formData = new FormData();
+      formData.append("code", code);
+      formData.append("client_id", "tommy1");
+      formData.append("grant_type", "authorization_code");
+      formData.append("client_secret", "tommy123456");
+
+      fetch("/oauth2/token", {
+        method: "POST",
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          console.log(res);
+          window.localStorage.setItem("tokenInfo", JSON.stringify(res));
+          window.location.href = "/index.html";
+        });
+    </script>
+  </body>
+</html>
