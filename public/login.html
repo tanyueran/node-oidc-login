@@ -13,8 +13,13 @@
       let url = new URL(href);
       console.log(url.searchParams.get("login_challenge"));
       if (!url.searchParams.get("login_challenge")) {
-        window.location.href =
-          "http://localhost:4444/oauth2/auth?&client_id=tommy1&response_type=code&scope=openid&state=1234567890123456";
+        let u = new URL("http://localhost:4444/oauth2/auth");
+        u.searchParams.append("client_id", "tommy1");
+        u.searchParams.append("response_type", "code");
+        u.searchParams.append("scope", "openid offline");
+        u.searchParams.append("response_mode", "query");
+        u.searchParams.append("state", Math.random());
+        window.location.href = u.href;
       }
 
       function loginHandler() {

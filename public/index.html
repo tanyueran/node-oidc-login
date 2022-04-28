@@ -27,7 +27,14 @@
         });
 
       function logoutHandler() {
-        
+        let url = new URL("http://localhost:4444/oauth2/sessions/logout");
+        url.searchParams.append("id_token_hint", obj.id_token);
+        url.searchParams.append(
+          "post_logout_redirect_uri",
+          "http://localhost:8099"
+        );
+        window.localStorage.removeItem("tokenInfo");
+        window.location.href = url.href;
       }
     </script>
   </body>
