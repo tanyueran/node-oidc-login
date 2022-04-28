@@ -8,6 +8,7 @@ let logger = require("morgan");
 let loginRouter = require("./routes/login");
 let consentRouter = require("./routes/consent");
 let logoutRouter = require("./routes/logout");
+let userRouter = require("./routes/user");
 
 let app = express();
 
@@ -43,6 +44,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/api/login", loginRouter);
 app.use("/api/consent", consentRouter);
 app.use("/api/logout", logoutRouter);
+app.use("/api/user", userRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

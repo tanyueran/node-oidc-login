@@ -36,6 +36,20 @@
         window.localStorage.removeItem("tokenInfo");
         window.location.href = url.href;
       }
+
+      function getUserInfo() {
+        fetch("/api/user/info", {
+          headers: {
+            authorization: "Bearer " + obj.access_token,
+          },
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            console.log(res);
+          });
+      }
+
+      getUserInfo();
     </script>
   </body>
 </html>
