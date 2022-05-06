@@ -2,15 +2,11 @@ let createError = require("http-errors");
 import express, { NextFunction, Response, Request } from "express";
 const compression = require("compression");
 const session = require("express-session");
-// 代理中间件
-const { createProxyMiddleware } = require("http-proxy-middleware");
 let path = require("path");
 let logger = require("morgan");
 
-let loginRouter = require("./routes/login");
-let consentRouter = require("./routes/consent");
-let logoutRouter = require("./routes/logout");
-let userRouter = require("./routes/user");
+import route from "./routes";
+import proxy from "./utils/proxy";
 
 let app = express();
 // session
@@ -25,37 +21,14 @@ app.use(
 app.use(compression());
 
 // 代理部分地址
-app.use(
-  "/oauth2/token",
-  createProxyMiddleware({
-    target: "http://localhost:4444",
-    changeOrigin: true,
-  })
-);
-app.use(
-  "/oauth2/sessions/logout",
-  createProxyMiddleware({
-    target: "http://localhost:4444",
-    changeOrigin: true,
-  })
-);
-app.use(
-  "/userinfo",
-  createProxyMiddleware({
-    target: "http://localhost:4444",
-    changeOrigin: true,
-  })
-);
+proxy(app);
 
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/api/login", loginRouter);
-app.use("/api/consent", consentRouter);
-app.use("/api/logout", logoutRouter);
-app.use("/api/user", userRouter);
+route(app);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -70,7 +43,7 @@ app.use(function (err: any, req: Request, res: Response, next: NextFunction) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render("error");
+  res.send(err);
 });
 
 module.exports = app;
