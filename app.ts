@@ -1,8 +1,10 @@
 let createError = require("http-errors");
 import express, { NextFunction, Response, Request } from "express";
+const compression = require("compression");
+const session = require("express-session");
+// 代理中间件
 const { createProxyMiddleware } = require("http-proxy-middleware");
 let path = require("path");
-let cookieParser = require("cookie-parser");
 let logger = require("morgan");
 
 let loginRouter = require("./routes/login");
@@ -11,6 +13,16 @@ let logoutRouter = require("./routes/logout");
 let userRouter = require("./routes/user");
 
 let app = express();
+// session
+app.use(
+  session({
+    secret: "node-oidc-login",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+// 添加压缩
+app.use(compression());
 
 // 代理部分地址
 app.use(
@@ -38,7 +50,6 @@ app.use(
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/api/login", loginRouter);

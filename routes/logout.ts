@@ -36,4 +36,12 @@ router.get("/", function (req, res, next) {
     });
 });
 
+// hydra退出成功的通知
+router.post("/backchannel-logout", function (req, res, next) {
+  console.log("收到退出的消息通知了");
+  console.log(req);
+
+  res.send("ok");
+});
+
 module.exports = router;
