@@ -72,6 +72,13 @@ docker run -it --rm \
 
 ```
 
+### 在 mysql 中创建用户表
+
+```text
+databasename: ode-oidc-login
+执行sql：sql/index.sql;
+```
+
 ### 运行 nodejs 服务
 
 ```text
