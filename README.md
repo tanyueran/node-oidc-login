@@ -83,10 +83,9 @@ databasename: ode-oidc-login
 
 ```text
 1、开发环境运行
-npm run start
+npm run dev:run
 2、编译后运行
-npm run build
-npm run
+npm run prod:run
 ```
 
 ### 浏览器打开
