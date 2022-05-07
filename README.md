@@ -1,8 +1,10 @@
-# nodejs 版本的 oidc 服务代码
+# nodejs 版本的 oidc 登入、登出代码
 
-> hydra 作为 auth2 的服务器
+> ory hydra 作为 auth2.0 的服务器、mysql 作为数据库
 
-## hydra 部署
+## Run
+
+### hydra 、mysql 部署
 
 ```text
 # 创建一个独立的网段
@@ -68,12 +70,18 @@ docker run -it --rm \
 
 # 至此 Hydra服务端就算是启动完成
 
-
-
-
-
-http://localhost:4444/oauth2/auth?&client_id=tommy1&response_type=code&scope=openid&state=nqvresaazswwbofkeztgnvfs
-
-http://localhost:4444/oauth2/sessions/logout
-
 ```
+
+### 运行 nodejs 服务
+
+```text
+1、开发环境运行
+npm run start
+2、编译后运行
+npm run build
+npm run
+```
+
+### 浏览器打开
+
+http://localhost

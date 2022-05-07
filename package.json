@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "run": "node ./build/www.ts",
+    "run": "node ./build/bind/www.js",
     "bulid": "tsc",
     "start": "ts-node-dev --watch public --respawn bin/www.ts"
   },
