@@ -1,13 +1,13 @@
 const fs = require("fs-extra");
-import path from "path";
+const path = require("path");
 
 fs.copy(
-  path.join(__dirname, "../bin/www"),
+  path.join(__dirname, "../src/bin/www"),
   path.join(__dirname, "../build/bin/www")
 )
   .then(() => {
     console.log("success!!!");
   })
-  .catch((err: any) => {
+  .catch((err) => {
     console.error(err);
   });
