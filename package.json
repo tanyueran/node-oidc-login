@@ -5,10 +5,10 @@
   "scripts": {
     "clean": "rimraf build/*",
     "copy-www": "node ./tools/copyWww.js",
-    "start": "pm2 start ./build/bin/www -i max",
+    "start": "pm2 start ./build/bin/www -i max --log-date-format='YYYY-MM-DD HH:mm Z'",
     "tsc": "tsc",
     "prod:run": "npm-run-all clean tsc copy-www start",
-    "dev:run": "ts-node ./src/bin/www"
+    "dev:run": "DEBUG=* ts-node ./src/bin/www"
   },
   "dependencies": {
     "@oryd/hydra-client": "^1.9.0-alpha.3",
