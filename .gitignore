@@ -4,3 +4,4 @@ build/
 lib/
 .history
 .vscode
+.DS_Store
